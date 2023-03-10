@@ -63,3 +63,6 @@ mkdir /etc/containerd/
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ####open port 6443
 kubectl get nodes
+####how to join a node
+ kubeadm token create --print-join-command
+ ###take the output and paste as it is in the node machine and wait for few min it will join
