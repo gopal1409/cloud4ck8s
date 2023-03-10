@@ -55,6 +55,6 @@ mkdir /etc/containerd/
    11  systemctl restart containerd
 
   ###intialized the master machine. 
-  kubeadm config image pull
+  kubeadm config images pull
   kubeadm init --pod-network-cidr=10.0.0.0/16
  
