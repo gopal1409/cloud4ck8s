@@ -57,4 +57,9 @@ mkdir /etc/containerd/
   ###intialized the master machine. 
   kubeadm config images pull
   kubeadm init --pod-network-cidr=10.0.0.0/16
- 
+ ###add the configuration to the k8s master machine
+ mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+####open port 6443
+kubectl get nodes
