@@ -54,5 +54,7 @@ mkdir /etc/containerd/
    10  containerd config default>/etc/containerd/config.toml
    11  systemctl restart containerd
 
-  
+  ###intialized the master machine. 
+  kubeadm config image pull
+  kubeadm init --pod-network-cidr=10.0.0.0/16
  
