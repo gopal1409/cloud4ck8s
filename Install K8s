@@ -37,6 +37,7 @@ sudo apt-get update
 ###install containerd
 apt install containerd
 ###configure the containerd
+mkdir /etc/containerd/
  10  containerd config default>/etc/containerd/config.toml
    11  systemctl restart containerd
    12  hostnamectl set-hostname --static k8smaster
