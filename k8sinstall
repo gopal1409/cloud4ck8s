@@ -30,3 +30,7 @@ sudo sysctl --system
 root@ip-172-31-10-85:~# nano /etc/modules-load.d/containerd.conf
 overlay
 br_netfilter
+####add containerd
+17  sudo apt install curl gnupg2 software-properties-common apt-transport-https ca-certificates -y
+   18  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+   19  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
