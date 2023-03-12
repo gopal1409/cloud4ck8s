@@ -1,0 +1,10 @@
+###install update and upgrade install k8s
+1  apt-get update
+    2  apt-get upgrade
+    3  hostnamectl set-hostname --static k8smaster
+    4  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+    5  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+    6  apt update
+    7  sudo apt -y install vim git curl wget kubelet kubeadm kubectl
+    8  sudo apt-mark hold kubelet kubeadm kubectl
+    9  sudo systemctl enable --now kubelet
