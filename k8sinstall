@@ -59,3 +59,22 @@ sudo systemctl restart containerd
 Enable containerd to run at startup with:
 
 sudo systemctl enable containerd
+
+####make update systemd
+ 29  vi /etc/containerd/config.toml
+Configuring the systemd cgroup driver
+To use the systemd cgroup driver in /etc/containerd/config.toml with runc, set
+
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+  ...
+  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+    SystemdCgroup = true
+    
+  ####lets enable kubernetes
+  32  sudo kubeadm init --pod-network-cidr=192.168.0.0/16
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+###install calico 
+ 34  kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/tigera-operator.yaml
+   35  kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/custom-resources.yaml
