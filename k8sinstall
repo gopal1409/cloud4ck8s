@@ -7,7 +7,8 @@
     6  apt update
     7  sudo apt -y install vim git curl wget kubelet kubeadm kubectl
     8  sudo apt-mark hold kubelet kubeadm kubectl
-    9  sudo systemctl enable --now kubeletEnable Kernel Modules and Change Settings in sysctl
+    9  sudo systemctl enable --now kubelet
+    Enable Kernel Modules and Change Settings in sysctl
 Next, we need to enable two kernel modules and add a few settings to sysctl. First, enable the overlay and br_netflilter modules with:
 
 sudo modprobe overlay
