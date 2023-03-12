@@ -34,3 +34,28 @@ br_netfilter
 17  sudo apt install curl gnupg2 software-properties-common apt-transport-https ca-certificates -y
    18  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
    19  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+###install containerd
+21  sudo apt update
+   22  sudo apt install containerd.io -y
+Change to the root user with:
+
+sudo su -
+
+Create a new directory for containerd with:
+
+mkdir -p /etc/containerd
+
+Generate the configuration file with:
+containerd config default>/etc/containerd/config.toml
+
+Exit from the root user with:
+
+exit
+
+Restart containerd with the command:
+
+sudo systemctl restart containerd
+
+Enable containerd to run at startup with:
+
+sudo systemctl enable containerd
