@@ -1,0 +1,4 @@
+###verify the node status using pod
+65  kubectl get nodes
+   66  kubectl get pod -A
+   67  kubectl get pod -A -o wide
