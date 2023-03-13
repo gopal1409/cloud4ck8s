@@ -1,0 +1,14 @@
+88  kubectl get pod -o wide
+   89  cd /etc/kubernetes/
+   90  ls
+   91  cd manifests/
+   92  ls
+   93  kubectl get pod -A
+   94  ls
+   95  kubectl run nodepod --image=nginx --dry-run=client -o yaml
+   96  kubectl run nodepod --image=nginx --dry-run=client -o yaml > node.yaml
+   97  cat node.yaml 
+   98  kubectl apply -f node.yaml 
+   99  kubectl get pod
+  100  kubectl get pod -o wide
+  101  history
