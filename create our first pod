@@ -1,0 +1,29 @@
+vi pod.yml
+
+###copy all the content till line 22
+apiVersion: v1
+###which api i am invoking the name of the api is pod
+kind: Pod
+##3it should create a pod but i need to provide the naming convention of the pod
+metadata:
+###using metadata we are defining the name of the pod
+  name: nginx
+####inside your pod i need to provide specfication
+spec:
+###creating a containers block
+  containers:
+###name of the contianer
+  - name: nginx
+###this is the image name of your container
+    image: nginx:1.14.2
+###this port is the container port
+    ports:
+
+    - containerPort: 80
+#####apply the pod using 
+kubectl apply -f pod.yml
+###3verify it 
+72  kubectl get pod
+   73  kubectl get nodes
+   74  kubectl get pod -o wide
+   75  kubectl describe pod nginx
