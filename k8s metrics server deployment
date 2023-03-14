@@ -1,0 +1,28 @@
+#33download the plugin
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+186  kubectl get pod
+  187  kubectl get pod -A
+  188  kubectl top pod
+  ###trouble shoot the metrics server
+  kubectl -n kube-system edit deploy metrics-server
+  ###modify the container block add insecure tls
+  spec:
+      containers:
+      - args:
+        - --cert-dir=/tmp
+        - --secure-port=4443
+        - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+        - --kubelet-use-node-status-port
+        - --metric-resolution=15s
+        - --kubelet-insecure-tls
+        
+        ####add the line below host networking
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp-dir
+      dnsPolicy: ClusterFirst
+      hostNetwork: true
+  
+      
