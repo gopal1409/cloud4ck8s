@@ -1,3 +1,6 @@
 kubectl get pod
 kubectl run testpod --image=nginx
 kubectl get pod
+##delete the pod
+112  kubectl delete pod testpod
+  113  kubectl get pod
