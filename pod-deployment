@@ -46,9 +46,3 @@ kubectl get deploy
 kubectl get rs
 kubectl get pod
 ####update our image
- 137  kubectl set image deployment nginx-deployment nginx=nginx:1.16.1
-  138  kubectl set image deployment nginx-deployment nginx-app=nginx:1.16.1
-  139  kubectl get deploy
-  140  kubectl get rs
-  141  kubectl rollout status deploy nginx-deployment
-  142  kubectl describe deploy nginx-deployment
