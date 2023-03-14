@@ -71,3 +71,39 @@ kubectl get pod
   163  kubectl expose deployment nginx-deployment --type=NodePort --name=nginx-service-node
   164  kubectl describe svc nginx-service-node
   165  kubectl get svc
+  
+  ##3create a service
+  apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2023-03-14T14:39:06Z"
+  labels:
+    app: nginx
+  name: nginx-service
+  namespace: default
+  resourceVersion: "44148"
+  uid: 4785c9ac-76e8-4db1-854a-080d3670db5b
+spec:
+  clusterIP: 10.103.248.203
+  clusterIPs:
+  - 10.103.248.203
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 30119
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+  
+  #####or you can do a running output
+  
+  kubectl get svc nginx-service -o yaml  > service.yml
