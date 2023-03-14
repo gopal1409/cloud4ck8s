@@ -45,4 +45,18 @@ kubectl apply -f deploy.yml
 kubectl get deploy
 kubectl get rs
 kubectl get pod
-####update our image
+####uroll out to previous release
+ kubectl set image deployment nginx-deployment nginx-app=nginx:1.161
+ 141  kubectl rollout status deploy nginx-deployment
+  142  kubectl describe deploy nginx-deployment
+  143  history
+  144  kubectl rollout status deployment nginx-deployment
+  145  kubectl get pod
+  146  kubectl get rs
+  147  kubectl rollout history deployment nginx-deployment
+  148  kubectl rollout history deployment nginx-deployment --revision=2
+  149  kubectl rollout history deployment nginx-deployment --revision=1
+  150  kubectl rollout history deployment nginx-deployment --revision=3
+  151  kubectl rollout undo deployment nginx-deployment 
+  152  kubectl rollout undo deployment nginx-deployment --to-revision=1
+  153  kubectl get deploy
