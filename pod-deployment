@@ -4,3 +4,38 @@ kubectl get pod
 ##delete the pod
 112  kubectl delete pod testpod
   113  kubectl get pod
+###lets create a deployment 
+###as the communcation to k8s happen using kubeapi
+vi deploy.yml
+####add the below metnioned file
+
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+##3specification about the deployment 
+spec:
+  replicas: 2 #going to create two pod 
+  selector: #the purpose of .spec.selector: define how the replicaset is going to find which pod to manage . 
+    matchLabels: #the same label i have put using match label expression
+      app: nginx
+  ###inside the pod we need to deploy our container image. 
+  template:
+    metadata:
+      labels:
+       app: nginx 
+    spec:
+      containers:
+      - name: nginx-app 
+        image: nginx 
+        ports:
+        - containerPort: 80   
+
+
+####once you add it till line 34
+kubectl apply -f deploy.yml
+kubectl get deploy
+kubectl get rs
+kubectl get pod
