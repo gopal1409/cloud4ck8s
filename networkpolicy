@@ -1,0 +1,10 @@
+##3create two pod and two service
+375  kubectl run frontend --image=nginx
+  376  kubectl run backedn --image=nginx
+  377  kubectl get pod
+  378  kubectl expose pod frontend --port 80
+  380  kubectl expose pod backedn --port 80
+  381  kubectl get pod,svc
+  382  kubectl exec frontend -- curl backedn
+  383  kubectl get pod,svc -o wide
+  384  kubectl exec frontend -- curl 192.168.145.201
