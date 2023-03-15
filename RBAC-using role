@@ -1,0 +1,15 @@
+##first we will create a ns and an service account
+351  kubectl create ns project-hamster
+  352  kubectl -n project-hamster create sa processor
+  353  kubectl -n project-hamster get sa processor
+  #####create the role with permission or resource
+    364  kubectl -n project-hamster create role processor --verb=create --resource=secret,configmap
+    ###do role binding which required service account and role
+     365  kubectl -n project-hamster create rolebinding -h
+  366  kubectl -n project-hamster create rolebinding processor --role processor --serviceaccount project-hamster:processor
+  ##test the role binding using can-i
+  368  kubectl auth can-i 
+  369  kubectl -n project-hamster auth can-i create secret --as system:serviceaccount:project-hamster:processor
+  370  kubectl -n project-hamster auth can-i create configmap --as system:serviceaccount:project-hamster:processor
+  371  kubectl -n project-hamster auth can-i create pod --as system:serviceaccount:project-hamster:processor
+  372  kubectl -n project-hamster auth can-i create deployment --as system:serviceaccount:project-hamster:processor
