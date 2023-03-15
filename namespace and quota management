@@ -11,8 +11,8 @@ metadata:
   name: quota 
 spec:
   hard:
-    request.cpu: "1" ##200m
-    request.memory: 1Gi ###200Miesource in the namespace
+    requests.cpu: "1" ##200m
+    requests.memory: 1Gi ###200Miesource in the namespace
   ###verify the same
   kubectl describe ns dev
   
