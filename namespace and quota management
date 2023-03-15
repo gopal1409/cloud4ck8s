@@ -1,0 +1,19 @@
+##3how to create ns 
+337  kubectl create ns dev
+  338  kubectl get ns dev
+  339  kubectl describe ns dev
+  #####how to allocate rapiVersion: v1 
+ ##add quota
+ vi quota.yml
+ #####inside quota.yml
+kind: ResourceQuota
+metadata:
+  name: quota 
+spec:
+  hard:
+    request.cpu: "1" ##200m
+    request.memory: 1Gi ###200Miesource in the namespace
+  ###verify the same
+  kubectl describe ns dev
+  
+  
