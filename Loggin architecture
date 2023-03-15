@@ -1,0 +1,41 @@
+ 406  kubectl get networkpolicy
+  407  kubectl delete networkpolicy backend
+  408  kubectl delete networkpolicy default-deny
+  409  kubectl delete networkpolicy frontend
+  ###create a pod which will generate logs
+vi logpod.yml
+####add the content
+apiVersion: v1
+kind: Pod
+metadata:
+  name: counter
+spec:
+  containers:
+  - name: count
+    image: busybox:1.28
+    args:
+    - /bin/sh
+    - -c
+    - >
+      i=0;
+      while true;
+      do
+        echo "$i: $(date)" >> /var/log/1.log;
+        echo "$(date) INFO $i" >> /var/log/2.log;
+        i=$((i+1));
+        sleep 1;
+      done      
+    volumeMounts:
+    - name: varlog
+      mountPath: /var/log
+  volumes:
+  - name: varlog
+    emptyDir: {}
+    ######apply it and login inside the pod 
+   413  kubectl apply -f logpod.yml 
+  414  kubectl get pod
+  415  kubectl exec -it counter sh
+  ####once loging inside the pod
+  cat /var/log/1.log
+  exit
+  
