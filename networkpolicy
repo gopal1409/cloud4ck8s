@@ -26,3 +26,81 @@ spec:
  ####test it
  kubectl exec frontend -- curl backedn
  kubectl exec backedn -- curl frontend
+###3backedn to frontend policy
+vi frontend.yml
+#####enable the policy
+apiVersion: networking.k8s.io/v1
+
+kind: NetworkPolicy
+
+metadata:
+
+  name: frontend
+
+  namespace: default
+
+spec:
+
+  podSelector:
+
+    matchLabels:
+
+      run: frontend
+
+  policyTypes:
+
+    
+
+  - Egress
+
+  egress:
+
+    - to:
+
+        
+        - podSelector:
+
+            matchLabels:
+
+              run: backedn
+####apply the policy
+kubectl apply -f frontend.yml
+###create the backend policy
+vi backend.yml
+#####put this policy
+apiVersion: networking.k8s.io/v1
+
+kind: NetworkPolicy
+
+metadata:
+
+  name: backend
+
+  namespace: default
+
+spec:
+
+  podSelector:
+
+    matchLabels:
+
+      run: backedn
+
+  policyTypes:
+
+    
+
+  - Ingress
+
+  ingress:
+
+    - from:
+
+        
+        - podSelector:
+
+            matchLabels:
+
+              run: frontend
+ ####apply the policy
+ kubectl apply -f backend.yml
