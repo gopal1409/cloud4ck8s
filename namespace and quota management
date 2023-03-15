@@ -13,7 +13,10 @@ spec:
   hard:
     requests.cpu: "1" ##200m
     requests.memory: 1Gi ###200Miesource in the namespace
+  ###3apply the file
+  kubectl apply -f quota.yml
   ###verify the same
+  
   kubectl describe ns dev
   
   
