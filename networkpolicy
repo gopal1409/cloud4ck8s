@@ -8,3 +8,21 @@
   382  kubectl exec frontend -- curl backedn
   383  kubectl get pod,svc -o wide
   384  kubectl exec frontend -- curl 192.168.145.201
+###lets create default deny
+vi networkpolicy.yml
+####add the content
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: default
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+ ####apply the file 
+ kubectl apply -f networkpolicy.yml
+ ####test it
+ kubectl exec frontend -- curl backedn
+ kubectl exec backedn -- curl frontend
