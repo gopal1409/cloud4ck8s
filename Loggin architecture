@@ -39,3 +39,45 @@ spec:
   cat /var/log/1.log
   exit
   
+#####add sidecart
+vi sidecar.yml
+####################
+apiVersion: v1
+kind: Pod
+metadata:
+  name: counter
+spec:
+  containers:
+  - name: count
+    image: busybox:1.28
+    args:
+    - /bin/sh
+    - -c
+    - >
+      i=0;
+      while true;
+      do
+        echo "$i: $(date)" >> /var/log/1.log;
+        echo "$(date) INFO $i" >> /var/log/2.log;
+        i=$((i+1));
+        sleep 1;
+      done      
+    volumeMounts:
+    - name: varlog
+      mountPath: /var/log
+  - name: count-log-1
+    image: busybox:1.28
+    args: [/bin/sh, -c, 'tail -n+1 -F /var/log/1.log']
+    volumeMounts:
+    - name: varlog 
+      mountPath: /var/log
+  volumes:
+  - name: varlog
+    emptyDir: {}
+    
+#####replace the previous container
+kubectl replace -f sidecar.yml --force
+######verify the same using kubectl logs
+ 421  kubectl logs counter -c count-log-1
+ ###finaly delete the pod 
+  421  kubectl logs counter -c count-log-1
