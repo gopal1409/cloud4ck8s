@@ -1,0 +1,40 @@
+####we will login into the node
+36  mkdir /mnt/data
+   38  cd /mnt/data
+   ls
+   ####3now we are going to inform k8s that i have an storage called as persistent volume
+vi pv.yml
+#######add the below mentioned 
+apiVersion: v1 
+kind: PersistentVolume
+metadata:
+  name: task-pv-volume 
+spec:
+  capacity: 
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce #readWritemany #read 
+  hostPath:
+    path: /mnt/data
+ #apply the pv 
+ kubectl apply -f pv.yml
+ #######verify the same
+ kubectl get pv
+ ####create the persistent volume
+vi pvc.yml
+#####################
+apiVersion: v1 
+kind: PersistentVolumeClaim
+metadata:
+  name: task-pv-claim 
+spec:
+  resources:
+    requests:
+      storage: 10Gi 
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  #####pvc
+  kubectl apply -f pvc.yml
+  ######
+  kubectl get pvc
