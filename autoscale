@@ -1,0 +1,5 @@
+ 505  kubectl create deployment webapp --image=nginx
+  506  kubectl get deploy
+  509  kubectl scale deploy webapp --replicas=5
+  510  kubectl get deploy
+  511  kubectl autoscale deploy webapp --min=5 --max=10 --cpu-percent=80
