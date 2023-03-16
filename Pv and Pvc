@@ -69,3 +69,64 @@ data:
 kubetl apply -f config.yml
 447  kubectl get configmap
   448  kubectl describe configmap usermgmt-config
+####lets create the db
+vi mysql.yml
+#######put the content
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql 
+####invoke deployment api and create a deployment with the nAME nginx-deployment
+#deployment required specification
+spec:
+  replicas: 1 #usaing replica it should create three pod
+  selector: #label is required all the three pod will have same label
+    matchLabels:
+      app: mysql 
+  template: #inside your pod how the container image will be deployed
+    metadata:
+      labels:
+        app: mysql 
+    spec:
+      containers:
+      - name: mysql 
+        image: mysql:5.6
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-password
+                key: db-password
+        ports:
+        - containerPort: 3306
+        ###now we want to attach the storage 
+        volumeMounts:
+          - name: mysql-storage
+            mountPath: /var/lib/mysql 
+          - name: user-config 
+            mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: task-pv-claim
+        - name: user-config
+          configMap:
+            name: usermgmt-config
+  ######apply it
+  kubectl apply -f mysql.yml
+  ########test it
+  456  kubectl get deploy
+  457  kubectl describe deploy mysql-deployment
+  458  kubectl get deploy
+  459  kubectl exec -it mysql-deployment -- /bin/bash
+  460  kubectl get pod
+  461  kubectl exec -it mysql-deployment-5c8bdfbb67-q4jwz -- /bin/bash
+  ######once login to the database
+  mysql -u root -p
+  #####enter password as dbpassword11
+  show databases;
+  ######you can see your webappdb
+  exit
+  exit
