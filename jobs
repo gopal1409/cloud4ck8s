@@ -32,4 +32,46 @@ spec:
         image: alpine
         command: ["echo","welcome to my node app"]
       restartPolicy: Never
-      
+ ####backofflimit
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: node-app-job
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      containers:
+      - name: node-app-job
+        image: alpine
+        command: ["ls","/data"]
+      restartPolicy: Never
+     #####active deadlinesecond
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: node-app-job
+spec:
+  activeDeadlineSeconds: 15
+  template:
+    spec:
+      containers:
+      - name: node-app-job
+        image: alpine
+        command: ["sleep","40"]
+      restartPolicy: Never
+###########cronjob
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: node-app-job
+spec:
+  schedule: "*/1 * * * *"
+  template:
+    spec:
+      containers:
+      - name: node-app-job
+        image: alpine
+        command: ["sleep","40"]
+      restartPolicy: Never
+     
