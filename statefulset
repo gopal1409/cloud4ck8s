@@ -1,0 +1,45 @@
+####cret a secret
+vi secret1.yml
+#######
+###if you want to store some secret using base64 encode 
+apiVersion: v1 
+kind: Secret 
+metadata:
+  name: mysql-db-password-1
+type: opaque
+data:
+  db-password: ZGJwYXNzd29yZDEx
+ #####apply it
+ kubectl apply -f secret1.yml
+ #####create pv and pvc
+ vi pv1.yml
+ ################
+apiVersion: v1 
+kind: PersistentVolume
+metadata:
+  name: task-pv-volume-1
+spec:
+  capacity: 
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce #readWritemany #read 
+  hostPath:
+    path: /mnt/data
+   ####apply it
+   kubectl apply -f pv1.yml
+   ######create pvc
+   vi pvc1.yml
+   ########
+apiVersion: v1 
+kind: PersistentVolumeClaim
+metadata:
+  name: task-pv-claim-1
+spec:
+  resources:
+    requests:
+      storage: 10Gi 
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+ ####apply it
+ kubectl apply -f pvc1.yml
