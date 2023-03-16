@@ -43,3 +43,57 @@ spec:
     - ReadWriteOnce
  ####apply it
  kubectl apply -f pvc1.yml
+###deploy statefull app
+vi state.yml
+#######
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-set
+  labels:
+    app: mysql 
+####invoke deployment api and create a deployment with the nAME nginx-deployment
+#deployment required specification
+spec:
+  replicas: 3 #usaing replica it should create three pod
+  selector: #label is required all the three pod will have same label
+    matchLabels:
+      app: mysql 
+  serviceName: mysql 
+  template: #inside your pod how the container image will be deployed
+    metadata:
+      labels:
+        app: mysql 
+    spec:
+      terminationGracePeriodSecond: 10
+      containers:
+      - name: mysql 
+        image: mysql:5.6
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-password
+                key: db-password
+        ports:
+        - containerPort: 3306
+        ###now we want to attach the storage 
+        volumeMounts:
+          - name: mysql-storage
+            mountPath: /var/lib/mysql 
+          - name: user-config 
+            mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: task-pv-claim
+        - name: user-config
+          configMap:
+            name: usermgmt-config
+ #########kubectl apply -f state.yml
+ 479  kubectl apply -f state.yml 
+  480  kubectl get statefulset
+  481  kubectl get pvc
+  482  kubectl get pv
+  483  kubectl get pod
+ 
