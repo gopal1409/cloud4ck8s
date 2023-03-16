@@ -54,3 +54,12 @@ data:
 kubectl apply -f secret.yml
 kubectl get secret
 kubectl describe secret mysql-db-password 
+#####lets create the configmap
+apiVersion: v1 
+kind: ConfigMap
+metadata:
+  name: usermgmt-config 
+data:
+  mysql_usermgmt.sql: |-
+   DROP DATABASE IF EXISTS webappdb;
+   CREATE DATABASE webappdb;
