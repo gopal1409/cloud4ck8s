@@ -23,7 +23,7 @@ kind: Job
 metadata:
   name: node-app-job
 spec:
-  completion: 2
+  completions: 2
   parallelism: 2
   template:
     spec:
