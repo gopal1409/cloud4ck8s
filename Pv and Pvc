@@ -38,3 +38,19 @@ spec:
   kubectl apply -f pvc.yml
   ######
   kubectl get pvc
+  
+  #####lets create a secret for db
+  ###if you want to store some secret using base64 encode 
+  vi secret.yml
+#########
+apiVersion: v1 
+kind: Secret 
+metadata:
+  name: mysql-db-password 
+type: opaque
+data:
+  db-password: ZGJwYXNzd29yZDEx
+####to verify secret
+kubectl apply -f secret.yml
+kubectl get secret
+kubectl describe secret mysql-db-password 
