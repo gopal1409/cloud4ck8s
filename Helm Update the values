@@ -1,0 +1,18 @@
+###how to update values using helm chart
+145  helm search repo --versions "nginx"
+  149  helm repo add bitnami https://charts.bitnami.com/bitnami
+  150  helm install bitani bitnami/nginx
+  151  helm install bitnami bitnami/nginx
+  152  helm list
+  153  helm install nginx01 bitnami/nginx
+  154  kubectl get svc
+####create values.yaml
+vi values.yaml
+######inside values.yaml
+service:
+  type: NodePort
+  #####
+  156  helm install nginx03 --values values.yml --set service.port=8080 bitnami/nginx
+  157  kubectl get svc
+  exit
+ 
