@@ -35,3 +35,20 @@ kind create cluster
    530  cp helm /usr/bin/
   531  cd ..
   532  helm
+###installing packages using helm
+ 39  helm list
+   40  helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+   41  helm repo update
+   42  helm install monitoring prometheus-community/kube-prometheus-stack
+   ###finally uninstall the packages using helm
+    57  helm uninstall monitoring
+   58  kubectl get pod
+   59  kubectl get pod -A
+kubectl delete crd alertmanagerconfigs.monitoring.coreos.com
+kubectl delete crd alertmanagers.monitoring.coreos.com
+kubectl delete crd podmonitors.monitoring.coreos.com
+kubectl delete crd probes.monitoring.coreos.com
+kubectl delete crd prometheuses.monitoring.coreos.com
+kubectl delete crd prometheusrules.monitoring.coreos.com
+kubectl delete crd servicemonitors.monitoring.coreos.com
+kubectl delete crd thanosrulers.monitoring.coreos.com
