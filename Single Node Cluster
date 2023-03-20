@@ -1,0 +1,33 @@
+##3launch a new vm with something called as kind
+t3. larget instance 
+#####we will install docker and kind
+sudo -i
+apt install docker.io
+##################################after installing docker we are going to install kubectl 
+Update the apt package index and install packages needed to use the Kubernetes apt repository:
+
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl
+If you use Debian 9 (stretch) or earlier you would also need to install apt-transport-https:
+
+sudo apt-get install -y apt-transport-https
+Download the Google Cloud public signing key:
+
+sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+Add the Kubernetes apt repository:
+
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+Update apt package index with the new repository and install kubectl:
+
+sudo apt-get update
+sudo apt-get install -y kubectl
+############################once we install kubectl we will download the kind package
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.17.0/kind-linux-amd64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+######after installing kind we will create our first k8s clsuter
+kind create cluster
+####then install helm 
+wget https://get.helm.sh/helm-v3.11.2-linux-amd64.tar.gz
+tar -zxvf helm-v3.11.2-linux-amd64.tar.gz
+####move the helm to a directory
