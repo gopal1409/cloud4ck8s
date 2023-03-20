@@ -1,0 +1,8 @@
+sudo -i
+520  wget https://get.helm.sh/helm-v3.11.2-linux-amd64.tar.gz
+  521  tar -zxvf helm-v3.11.2-linux-amd64.tar.gz 
+  522  cd linux-amd64/
+  523  ls
+   530  cp helm /usr/bin/
+  531  cd ..
+  532  helm
