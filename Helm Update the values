@@ -16,3 +16,24 @@ service:
   157  kubectl get svc
   exit
  
+####helm get command to get more information about your chart
+161  helm list
+  162  helm get notes nginx01
+  163  helm get values nginx01
+  164  helm get values nginx03
+  165  helm get values nginx03 --all
+  166  helm get manifest nginx03
+  167  helm install --dry-run
+  ####how to do rollback service and image
+  170  helm list
+  171  helm upgrade nginx01 --set service.type=foobar bitnami/nginx
+  172  helm history nginx01
+  173  kubectl get svc
+  174  helm rollback nginx01 1
+  175  helm uninstall nginx01 --keep-history
+  176  helm history nginx01
+  177  helm rollback nginx01 1
+  179  kubectl get svc
+  180  helm upgrade nginx01 --set image.registry=nginx:1.6.1 bitnami/nginx
+  181  helm history nginx01
+  
